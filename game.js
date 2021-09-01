@@ -1,16 +1,15 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext("2d");
 const radius = 10;
-const speed = [2, 2.3, 2.7, 3, 3.5, 3.7, -2, -2.3, -2.7, -3, -3.5, -3.7];
-const fps = 70;
+const speed = [3, -3];
 const playerSpeed = 10;
 
 canvas.height = 600;
 canvas.width = 900;
 
 let x = 450 - radius;
-let y = 300 - radius;
-let isStopped = true;
+let y = Math.random()*(300 - radius);
+let isStopped = false;
 
 let velocityX = speed[Math.floor(Math.random()*speed.length)];
 let velocityY = speed[Math.floor(Math.random()*speed.length)];
@@ -50,10 +49,10 @@ const ball = {
     if (y + radius >= canvas.height || y <= 0 + radius) {
       velocityY = 0 - velocityY;
     }
-    if ((playerOne.y <= y && playerOne.y + 70 >= y) && (x >= 40 && x <= 43.7)) {
+    if ((playerOne.y <= y && playerOne.y + 70 >= y) && ((x >= 40) && (x <= 43))) {
       velocityX = 0 - velocityX;
     }
-    if ((playerTwo.y <= y && playerTwo.y + 70 >= y) && x >= (canvas.width-40) && (x <= (canvas.width-40) + 3.7)) {
+    if ((playerTwo.y <= y && playerTwo.y + 70 >= y) && ((x + radius >= (canvas.width-40)) && (x <= (canvas.width-40) + 3))) {
       velocityX = 0 - velocityX;
     }
   },
@@ -64,10 +63,10 @@ const ball = {
     ctx.fillStyle = 'rgb(255, 241, 241)';
     ctx.arc(x, y, radius, 0, Math.PI*2);
     ctx.fill();
-    ctx.moveTo((canvas.width/2) - 4, 0);
-    ctx.lineTo((canvas.width/2) - 4, canvas.height);
+    ctx.moveTo((canvas.width/2) - 2, 0);
+    ctx.lineTo((canvas.width/2) - 2, canvas.height);
     ctx.lineWidth = 4;
-    ctx.strokeStyle = 'rgb(255, 241, 241)';
+    ctx.strokeStyle = 'rgba(255, 241, 241, 0.5)';
     ctx.stroke();
     printPoint(playerOne.point, 70, 40);
     printPoint(playerTwo.point, (canvas.width - 70), 40);
@@ -79,21 +78,23 @@ const ball = {
     }
   }
 }
+ball.draw();
 
 let then = Date.now();
-let then1 = Date.now();
 function animation() {
   if (isStopped) {
     let now = Date.now();
-    let differ = now - then;
-    if (differ > 1000 / fps) {
-      ball.draw();
+    ball.draw();
+    if ((now - then) > 1000 / 40) {
+      moveMent();
       then = Date.now();
     }
-    if ((now - then1) > 1000 / 40) {
-      moveMent();
-      then1 = Date.now();
-    }
+  } else {
+    ctx.font = "30px Arial";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "rgb(255, 241, 241)";
+    ctx.fillText('space to start', 450, 300);
+    ctx.fillText('and pause the game', 450, 350);
   }
   requestAnimationFrame(animation);
 }
