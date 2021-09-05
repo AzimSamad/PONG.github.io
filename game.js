@@ -1,7 +1,7 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext("2d");
 const radius = 10;
-const speed = [3, -3];
+const speed = [4, -4];
 const playerSpeed = 10;
 
 canvas.height = 600;
@@ -37,8 +37,8 @@ class Player {
   }
 }
 
-const playerOne = new Player(30);
-const playerTwo = new Player(canvas.width - 40);
+const playerOne = new Player(32);
+const playerTwo = new Player(canvas.width - 42);
 
 const ball = {
   move: function() {
@@ -49,10 +49,10 @@ const ball = {
     if (y + radius >= canvas.height || y <= 0 + radius) {
       velocityY = 0 - velocityY;
     }
-    if ((playerOne.y <= y && playerOne.y + 70 >= y) && ((x >= 40) && (x <= 43))) {
-      velocityX = 0 - velocityX;
+    if ((playerOne.y <= (y - (radius/2)) && playerOne.y + 70 >= (y - (radius/2))) && (x >= 44 && x <= 44)) {
+      velocityX = 0 - velocityX; 
     }
-    if ((playerTwo.y <= y && playerTwo.y + 70 >= y) && ((x + radius >= (canvas.width-40)) && (x <= (canvas.width-40) + 3))) {
+    if ((playerTwo.y <= (y - (radius/2)) && playerTwo.y + 70 >= (y - (radius/2))) && ((x + radius) >= (canvas.width - 42) && (x + radius) <= (canvas.width - 42))) {
       velocityX = 0 - velocityX;
     }
   },
