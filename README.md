@@ -1,4 +1,4 @@
 # PONG.github.io
 It's a PONG game, maybe
 
-https://azimsamad.github.io/PONG.github.io/
+<a href=""https://azimsamad.github.io/PONG.github.io/>play game</a>
